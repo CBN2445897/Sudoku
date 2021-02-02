@@ -33,6 +33,7 @@ class DynamicRow():
 
     def make_array(self,new_cap):
         return (new_cap * ctypes.py_object)()
+    #test
 
 
 

@@ -94,7 +94,7 @@ List = [1,2,3,4,5,6,7,8,9]
 x = 0
 while len(List) > 0:
     randomNumber = random.randint(1, 9)
-    if randomNumber in List and randomNumber!=Matrix[0][1:3]:
+    if randomNumber in List and randomNumber!=Matrix[0][0:2]:
         print('x = ',x)
         print('randomNumber', randomNumber)
         List.remove(randomNumber)

@@ -82,10 +82,10 @@ x = 0
 while len(List) > 0:
     randomNumber = random.randint(1, 9)
     if randomNumber in List:
-        print('x = ',x)
-        print('randomNumber', randomNumber)
+        #print('x = ',x)
+        #print('randomNumber', randomNumber)
         List.remove(randomNumber)
-        print('List =', List)
+        #print('List =', List)
         Row.append(randomNumber)
         Matrix[0][x] = randomNumber
         x = x + 1
@@ -94,25 +94,18 @@ List = [1,2,3,4,5,6,7,8,9]
 x = 0
 while len(List) > 0:
     randomNumber = random.randint(1, 9)
-    if randomNumber in List:
+    if randomNumber in List and randomNumber!=Matrix[0][1:3]:
         print('x = ',x)
         print('randomNumber', randomNumber)
         List.remove(randomNumber)
         print('List =', List)
         Row.append(randomNumber)
-        Matrix[2][x] = randomNumber
+        Matrix[1][x] = randomNumber
         x = x + 1
 
 print('Matrix', Matrix[0])
-print('Matrix', Matrix[2])
-#print('Matrix 1', Matrix[1])
-#print('Column 0', Column[0])
-#print('Column 1', Column[1])
+print('Matrix', Matrix[1])
 
-
-#for i in Matrix[1]:
- #   ColumnDyna.append(1)
-  #  print('ColumnDyna[i]', ColumnDyna)
 
 
 

@@ -1,6 +1,7 @@
 from random import seed
 import random
 from array import *
+from turtle import goto
 import numpy as np
 from pip._vendor.msgpack.fallback import xrange
 
@@ -45,21 +46,6 @@ rootNumber = random.randint(1, 9)
 leftChildNumber = random.randint(1,9)
 rightChildNumber = random.randint(1,9)
 
-if leftChildNumber == rootNumber :
-    leftChildNumber = random.randint(1, 9)
-if rightChildNumber == rootNumber or rightChildNumber == leftChildNumber :
-    rightChildNumber = random.randint(1, 9)
-
-tree = BinaryTree('root',rootNumber)
-tree.insertLeft('leftChild', leftChildNumber)
-tree.insertRight('rightChild', rightChildNumber)
-tree.leftChild.insertLeft('leftChild13', 13)
-tree.rightChild.insertLeft('leftChild11', 11)
-
-Row = TwoDimenMatrix.DynamicRow()
-Column01= TwoDimenMatrix.DynamicRow()
-#Column[1]= TwoDimenMatrix.DynamicRow()
-
 
 Matrix = [[0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],
@@ -70,52 +56,72 @@ Matrix = [[0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],]
-Column = [[], []]
-#n = 5
-#matrix = np.zeros((n,9)) # Pre-allocate matrix
-#for i in range(1,n):
-    #matrix[i] = [i, i, i,9]
-#print(matrix)
+
+SmallMatrix = [[0,0,0,],
+               [0,0,0,],
+               [0,0,0,],]
+MatrixTemp = [0,0,0]
+MatrixTemp1 = [0,0,0]
 
 List = [1,2,3,4,5,6,7,8,9]
 x = 0
 while len(List) > 0:
     randomNumber = random.randint(1, 9)
     if randomNumber in List:
-        #print('x = ',x)
-        #print('randomNumber', randomNumber)
         List.remove(randomNumber)
-        #print('List =', List)
-        Row.append(randomNumber)
         Matrix[0][x] = randomNumber
+        if x < 3:
+            SmallMatrix[0][x] = Matrix[0][x]
         x = x + 1
-        #Column[x].append(randomNumber)
+print('Matrix[0]', Matrix[0])
+#print('SmallMatrix', SmallMatrix)
+
 List = [1,2,3,4,5,6,7,8,9]
+Differ_List = list(set(List) - set(SmallMatrix[0]))
+#print('Differ_List', Differ_List)
 x = 0
-while len(List) > 0:
-    randomNumber = random.randint(1, 9)
-    if randomNumber in List and randomNumber!=Matrix[0][0:2]:
-        print('x = ',x)
-        print('randomNumber', randomNumber)
-        List.remove(randomNumber)
-        print('List =', List)
-        Row.append(randomNumber)
+counter = 9
+while counter > 0:
+    if x < 6:
+        randomNumber = random.choice(Differ_List)
+        counter = counter -1
         Matrix[1][x] = randomNumber
+        Differ_List.remove(randomNumber)
+        SmallMatrix[1][0:3] = Matrix[1][0:3]
+        MatrixTemp = SmallMatrix[1][0:3]
         x = x + 1
+    if x >= 6:
+        randomNumber = random.choice(MatrixTemp)
+        counter = counter -1
+        Matrix[1][x] = randomNumber
+        MatrixTemp.remove(randomNumber)
+        x = x + 1
+#print('SmallMatrix', SmallMatrix)
+print('Matrix[1]', Matrix[1])
 
-print('Matrix', Matrix[0])
-print('Matrix', Matrix[1])
+List = [1,2,3,4,5,6,7,8,9]
+Differ_List = list(set(List) - set(SmallMatrix[0])- set(SmallMatrix[1]))
+#print('Differ_List', Differ_List)
+x = 0
+counter = 9
+while counter > 0:
+    if x < 3:
+        randomNumber = random.choice(Differ_List)
+        counter = counter -1
+        Matrix[2][x] = randomNumber
+        #print(Matrix[2][x])
+        Differ_List.remove(randomNumber)
+        SmallMatrix[2][0:3] = Matrix[2][0:3]
+        #print('SmallMatrix[2][x]', SmallMatrix[2][x])
+        MatrixTemp = list(set(List) - set(SmallMatrix[2][0:3]))
+        x = x + 1
+    if x >= 3:
+        #print('MatrixTemp', MatrixTemp)
+        randomNumber = random.choice(MatrixTemp)
+        counter = counter -1
+        Matrix[2][x] = randomNumber
+        MatrixTemp.remove(randomNumber)
+        x = x + 1
+print('Matrix[2]', Matrix[2])
 
-
-
-
-
-
-
-
-#tree.leftChild.insertLeft('leftChild1', leftChildNumber)
-#print('root', tree.getNumber())
-#print(tree.leftChild.getRootVal(), tree.leftChild.getNumber())
-#print(tree.rightChild.getRootVal(), tree.rightChild.getNumber())
-#print(tree.rightChild.leftChild.getRootVal(), tree.rightChild.leftChild.getNumber())
 

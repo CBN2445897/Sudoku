@@ -57,11 +57,15 @@ Matrix = [[0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0,0],]
 
-SmallMatrix = [[0,0,0,],
+SmallMatrix = [[[0,0,0,],
                [0,0,0,],
-               [0,0,0,],]
-MatrixTemp = [0,0,0]
-MatrixTemp1 = [0,0,0]
+               [0,0,0,],],
+               [[0,0,0,],
+               [0,0,0,],
+               [0,0,0,],],
+               [[0,0,0,],
+                [0,0,0,],
+                [0,0,0,],]]
 
 List = [1,2,3,4,5,6,7,8,9]
 x = 0
@@ -70,58 +74,63 @@ while len(List) > 0:
     if randomNumber in List:
         List.remove(randomNumber)
         Matrix[0][x] = randomNumber
-        if x < 3:
-            SmallMatrix[0][x] = Matrix[0][x]
+        if x in range (0,3):
+            SmallMatrix[0][0][x] = Matrix[0][x]         #The first row of the smallmatrix[0]
+            #print('SmallMatrix 0', SmallMatrix[0])
+        if x in range (3,6):
+            SmallMatrix[1][0][x-3]= (Matrix[0][x])        #The first row of the smallmatrix[1]
+            #print('SmallMatrix 1', SmallMatrix[1])
+        if x in range (6,9):
+            SmallMatrix[2][0][x-6]= (Matrix[0][x])        #The first row of the smallmatrix[2]
+            #print('SmallMatrix 2', SmallMatrix[2])
+        x = x + 1
+
+# Create the 2. row of the Matrix
+List = [1,2,3,4,5,6,7,8,9]          # Second row of the Matrix
+x = 0
+counter = 9
+while x < 10:
+        if x in range (0,3):
+            Differ_List = list(set(List) - set(SmallMatrix[0][0])- set(Matrix[1]))
+            #print('Differ_List = ', Differ_List)  # print('SmallMatrix 1', SmallMatrix[0])
+            #print('SmallMatrix[0][0] =', SmallMatrix[0][0])
+            Matrix[1][x] = random.choice(Differ_List)
+            #print('Matrix[1][x]', Matrix[1][x])
+            SmallMatrix[0][1][x] = Matrix[1][x]         #The second row of the smallmatrix[0]
+            #x += 1
+        if x in range (3,6):
+            Differ_List = list(set(List) - set(SmallMatrix[0][1])-set(SmallMatrix[1][0])- set(Matrix[1]))
+            Matrix[1][x] = random.choice(Differ_List)
+            SmallMatrix[1][1][x-3]= (Matrix[1][x])        #The second row of the smallmatrix[1]
+            #x += 1
+            #print('SmallMatrix 1', SmallMatrix[1])
+        if x in range (6,9):
+            Differ_List = list(set(List) - set(SmallMatrix[0][1]) - set(SmallMatrix[1][1])- set(Matrix[1]))
+            Matrix[1][x] = random.choice(Differ_List)
+            SmallMatrix[2][1][x-6]= (Matrix[1][x])        #The second row of the smallmatrix[2]
+            #x += 1
+            #print('SmallMatrix 2', SmallMatrix[2])
         x = x + 1
 print('Matrix[0]', Matrix[0])
-#print('SmallMatrix', SmallMatrix)
-
-List = [1,2,3,4,5,6,7,8,9]
-Differ_List = list(set(List) - set(SmallMatrix[0]))
-#print('Differ_List', Differ_List)
-x = 0
-counter = 9
-while counter > 0:
-    if x < 6:
-        randomNumber = random.choice(Differ_List)
-        counter = counter -1
-        Matrix[1][x] = randomNumber
-        Differ_List.remove(randomNumber)
-        SmallMatrix[1][0:3] = Matrix[1][0:3]
-        MatrixTemp = SmallMatrix[1][0:3]
-        x = x + 1
-    if x >= 6:
-        randomNumber = random.choice(MatrixTemp)
-        counter = counter -1
-        Matrix[1][x] = randomNumber
-        MatrixTemp.remove(randomNumber)
-        x = x + 1
-#print('SmallMatrix', SmallMatrix)
 print('Matrix[1]', Matrix[1])
 
-List = [1,2,3,4,5,6,7,8,9]
-Differ_List = list(set(List) - set(SmallMatrix[0])- set(SmallMatrix[1]))
-#print('Differ_List', Differ_List)
+# Create the 3. row of the Matrix
+List = [1,2,3,4,5,6,7,8,9]          # Second row of the Matrix
 x = 0
 counter = 9
-while counter > 0:
-    if x < 3:
-        randomNumber = random.choice(Differ_List)
-        counter = counter -1
-        Matrix[2][x] = randomNumber
-        #print(Matrix[2][x])
-        Differ_List.remove(randomNumber)
-        SmallMatrix[2][0:3] = Matrix[2][0:3]
-        #print('SmallMatrix[2][x]', SmallMatrix[2][x])
-        MatrixTemp = list(set(List) - set(SmallMatrix[2][0:3]))
-        x = x + 1
-    if x >= 3:
-        #print('MatrixTemp', MatrixTemp)
-        randomNumber = random.choice(MatrixTemp)
-        counter = counter -1
-        Matrix[2][x] = randomNumber
-        MatrixTemp.remove(randomNumber)
+while x < 10:
+        if x in range (0,3):
+            Differ_List = list(set(List) - set(SmallMatrix[0][0])-set(SmallMatrix[0][1])- set(Matrix[2]))
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[0][2][x] = Matrix[2][x]         #The third row of the smallmatrix[0]
+        if x in range (3,6):
+            Differ_List = list(set(List) - set(SmallMatrix[1][0]) - set(SmallMatrix[1][1])- set(Matrix[2]))
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[1][2][x-3]= (Matrix[2][x])        #The third row of the smallmatrix[1]
+        if x in range (6,9):
+            Differ_List = list(set(List) - set(SmallMatrix[2][0]) - set(SmallMatrix[2][1])- set(Matrix[2]))
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[2][2][x-6]= (Matrix[2][x])        #The third row of the smallmatrix[2]
         x = x + 1
 print('Matrix[2]', Matrix[2])
-
-
+#print('SmallMatrix', SmallMatrix)

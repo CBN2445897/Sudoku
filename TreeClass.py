@@ -125,6 +125,32 @@ while x < 10:
             SmallMatrix[0][2][x] = Matrix[2][x]         #The third row of the smallmatrix[0]
         if x in range (3,6):
             Differ_List = list(set(List) - set(SmallMatrix[1][0]) - set(SmallMatrix[1][1])- set(Matrix[2]))
+            print('Differ_List', Differ_List)
+            print('Matrix[2]', Matrix[2])
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[1][2][x-3]= (Matrix[2][x])        #The third row of the smallmatrix[1]
+        if x in range (6,9):
+            Differ_List = list(set(List) - set(SmallMatrix[2][0]) - set(SmallMatrix[2][1])- set(Matrix[2]))
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[2][2][x-6]= (Matrix[2][x])        #The third row of the smallmatrix[2]
+        x = x + 1
+print('Matrix[2]', Matrix[2])
+#print('SmallMatrix', SmallMatrix)
+
+
+# Create the 4. row of the Matrix
+List = [1,2,3,4,5,6,7,8,9]          # Second row of the Matrix
+x = 0
+counter = 9
+while x < 10:
+        if x in range (0,3):
+            Differ_List = list(set(List) - set(SmallMatrix[0][0])-set(SmallMatrix[0][1])- set(Matrix[2]))
+            Matrix[2][x] = random.choice(Differ_List)
+            SmallMatrix[0][2][x] = Matrix[2][x]         #The third row of the smallmatrix[0]
+        if x in range (3,6):
+            Differ_List = list(set(List) - set(SmallMatrix[1][0]) - set(SmallMatrix[1][1])- set(Matrix[2]))
+            print('Differ_List', Differ_List)
+            print('Matrix[2]', Matrix[2])
             Matrix[2][x] = random.choice(Differ_List)
             SmallMatrix[1][2][x-3]= (Matrix[2][x])        #The third row of the smallmatrix[1]
         if x in range (6,9):

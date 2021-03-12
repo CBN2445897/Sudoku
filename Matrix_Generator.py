@@ -69,23 +69,23 @@ class SudokuMatrixGenerator():
         listRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         print("listRow = ", listRow)
 
-        for resetedIndex in range(0, 8):
-            resetedColumn = list(listColumn[resetedIndex])
-            resetedColumn.remove(0)
-            resetedColumn.append(sudokuMatrix[currentRow][resetedIndex])
-            listColumn[resetedIndex] = np.array(resetedColumn)
+        for resetIndex in range(0, 8):
+            resetColumn = list(listColumn[resetIndex])
+            resetColumn.remove(100)
+            resetColumn.append(sudokuMatrix[currentRow][resetIndex])
+            listColumn[resetIndex] = np.array(resetColumn)
 
-            matrixIndex = matrixIndexCalculator(currentRow, resetedIndex)
-            resetedMatrixList = list(listMatrix[matrixIndex])
-            resetedMatrixList.remove(100)
-            resetedMatrixList.append(sudokuMatrix[currentRow][resetedIndex])
-            listMatrix[matrixIndex] = subMatrix.array(resetedMatrixList)
+            matrixIndex = matrixIndexCalculator(currentRow, resetIndex)
+            resetMatrixList = list(listMatrix[matrixIndex])
+            resetMatrixList.remove(100)
+            resetMatrixList.append(sudokuMatrix[currentRow][resetIndex])
+            listMatrix[matrixIndex] = subMatrix.array(resetMatrixList)
 
         sudokuMatrix[currentRow] = 0
         print("sudokuMatrix[currentRow]", sudokuMatrix[currentRow])
         print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
         matrixIndex = matrixIndexCalculator(currentRow, 0)
-        print("reseted matrixIndex = ", matrixIndex)
+        print("reset matrixIndex = ", matrixIndex)
         intersectionList = list(set.intersection(set(listRow), set(listColumn[columnIndex + 1]),
                                                  set(listMatrix[matrixIndex])))
 
@@ -115,128 +115,45 @@ class SudokuMatrixGenerator():
                     print("matrixIndex", matrixIndex)
                     print("listMatrix[matrixIndex]", listMatrix[matrixIndex])
 
-                    #if list(listMatrix[matrixIndex]).count(100) == 9:
-                        #matrixIndex += 1
-                        #print("next matrix block --> listMatrix = ", listMatrix[matrixIndex + 1])
-
                     intersectionList = list(
                         set.intersection(set(listRow), set(listColumn[columnIndex + 1]), set(listMatrix[matrixIndex])))
                     print("intersectionList = ", intersectionList)
 
-                    if ((len(intersectionList) == 0) and (len(listRow) % 3 != 0)):
+                    if ((len(intersectionList) == 0)): #and (len(listRow) % 3 != 0)):
                         print("intersection list is empty Fall 0 , es wird auf den Anfang der Zeile zurückgesetzt")
                         columnIndex = -1
                         listRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
                         print("listRow = ", listRow)
-
-                        for resetedIndex in range(0,8):
-                            resetedColumn = list(listColumn[resetedIndex])
-                            resetedColumn.remove(0)
-                            resetedColumn.append(sudokuMatrix[currentRow][resetedIndex])
-                            listColumn[resetedIndex] = np.array(resetedColumn)
-
-                            matrixIndex = matrixIndexCalculator(currentRow, resetedIndex)
-                            resetedMatrixList = list(listMatrix[matrixIndex])
-                            resetedMatrixList.remove(100)
-                            resetedMatrixList.append(sudokuMatrix[currentRow][resetedIndex])
-                            listMatrix[matrixIndex] = subMatrix.array(resetedMatrixList)
-
+                        for resetIndex in range(0,8):
+                            resetColumn = list(listColumn[resetIndex])
+                            if 100 in resetColumn:
+                                resetColumn.remove(100)
+                            else:
+                                continue
+                            resetColumn.append(sudokuMatrix[currentRow][resetIndex])
+                            listColumn[resetIndex] = np.array(resetColumn)
+                            matrixIndex = matrixIndexCalculator(currentRow, resetIndex)
+                            resetMatrixList = list(listMatrix[matrixIndex])
+                            if 100 in resetMatrixList:
+                                resetMatrixList.remove(100)
+                            else:
+                                continue
+                            resetMatrixList.append(sudokuMatrix[currentRow][resetIndex])
+                            listMatrix[matrixIndex] = subMatrix.array(resetMatrixList)
                         sudokuMatrix[currentRow] = 0
                         print("sudokuMatrix[currentRow]", sudokuMatrix[currentRow])
                         print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
                         matrixIndex = matrixIndexCalculator(currentRow, 0)
-                        print("reseted matrixIndex = ", matrixIndex)
+                        print("reset matrixIndex = ", matrixIndex)
                         intersectionList = list(set.intersection(set(listRow), set(listColumn[columnIndex + 1]),
                                                                  set(listMatrix[matrixIndex])))
-
-
-                        print("resetedListColumn = ", resetedColumn[0])
-                        print("resetedMatrixList = " , resetedMatrixList[matrixIndex])
-                    # columnIndex = -1
-                    # break
-                    if ((len(intersectionList) == 0) and (len(listRow) == 9)):
-                        print("intersection list is empty, Fall 1 Zurücksetzen")
-                        columnIndex = -1
-                        listRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        print("listRow = ", listRow)
-
-                        for resetedIndex in range(0, 8):
-                            resetedColumn = list(listColumn[resetedIndex])
-                            resetedColumn.remove(0)
-                            resetedColumn.append(sudokuMatrix[currentRow][resetedIndex])
-                            listColumn[resetedIndex] = np.array(resetedColumn)
-
-                            matrixIndex = matrixIndexCalculator(currentRow, resetedIndex)
-                            resetedMatrixList = list(listMatrix[matrixIndex])
-                            resetedMatrixList.remove(100)
-                            resetedMatrixList.append(sudokuMatrix[currentRow][resetedIndex])
-                            listMatrix[matrixIndex] = subMatrix.array(resetedMatrixList)
-
-                        sudokuMatrix[currentRow] = 0
-                        print("sudokuMatrix[currentRow]", sudokuMatrix[currentRow])
-                        print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
-                        matrixIndex = matrixIndexCalculator(currentRow, 0)
-                        print("reseted matrixIndex = ", matrixIndex)
-                        intersectionList = list(set.intersection(set(listRow), set(listColumn[columnIndex + 1]),
-                                                                 set(listMatrix[matrixIndex])))
-
-                    if ((len(intersectionList) == 0) and (len(listRow) == 6)):
-                        print("intersection list is empty, Fall 2 Zurücksetzen")
-                        columnIndex = -1
-                        listRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        print("listRow = ", listRow)
-
-                        for resetedIndex in range(0, 8):
-                            resetedColumn = list(listColumn[resetedIndex])
-                            resetedColumn.remove(0)
-                            resetedColumn.append(sudokuMatrix[currentRow][resetedIndex])
-                            listColumn[resetedIndex] = np.array(resetedColumn)
-
-                            matrixIndex = matrixIndexCalculator(currentRow, resetedIndex)
-                            resetedMatrixList = list(listMatrix[matrixIndex])
-                            resetedMatrixList.remove(100)
-                            resetedMatrixList.append(sudokuMatrix[currentRow][resetedIndex])
-                            listMatrix[matrixIndex] = subMatrix.array(resetedMatrixList)
-
-                        sudokuMatrix[currentRow] = 0
-                        print("sudokuMatrix[currentRow]", sudokuMatrix[currentRow])
-                        print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
-                        matrixIndex = matrixIndexCalculator(currentRow, 0)
-                        print("reseted matrixIndex = ", matrixIndex)
-                        intersectionList = list(set.intersection(set(listRow), set(listColumn[columnIndex + 1]),
-                                                                 set(listMatrix[matrixIndex])))
-
-                    if ((len(intersectionList) == 0) and (len(listRow) == 3)):
-                        print("intersection list is empty Fall 3 Zurücksetzen")
-                        columnIndex = -1
-                        listRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        print("listRow = ", listRow)
-
-                        for resetedIndex in range(0,8):
-                            resetedColumn = list(listColumn[resetedIndex])
-                            resetedColumn.remove(0)
-                            resetedColumn.append(sudokuMatrix[currentRow][resetedIndex])
-                            listColumn[resetedIndex] = np.array(resetedColumn)
-
-                            matrixIndex = matrixIndexCalculator(currentRow, resetedIndex)
-                            resetedMatrixList = list(listMatrix[matrixIndex])
-                            resetedMatrixList.remove(100)
-                            resetedMatrixList.append(sudokuMatrix[currentRow][resetedIndex])
-                            listMatrix[matrixIndex] = subMatrix.array(resetedMatrixList)
-
-                        sudokuMatrix[currentRow] = 0
-                        print("sudokuMatrix[currentRow]", sudokuMatrix[currentRow])
-                        print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
-                        matrixIndex = matrixIndexCalculator(currentRow, 0)
-                        print("reseted matrixIndex = ", matrixIndex)
-                        intersectionList = list(set.intersection(set(listRow), set(listColumn[columnIndex + 1]),
-                                                                 set(listMatrix[matrixIndex])))
-
+                        print("resetListColumn = ", resetColumn[0])
+                        print("resetMatrixList = " , resetMatrixList[matrixIndex])
 
                     print("listColumn[columnIndex] = ", listColumn[columnIndex + 1])
-                    # takenValue = random.choice(list(set.intersection(set(listRow),set(listColumn[columnIndex+1]),set(listMatrix[matrixIndex]))))
-                    if (len(intersectionList) == 0):
-                        break
+
+                    #if (len(intersectionList) == 0):
+                        #break
                     takenValue = random.choice(intersectionList)
                     columnIndex += +1
                     if (0 <= currentRow <= 2) and (0 <= columnIndex <= 2):
@@ -266,7 +183,7 @@ class SudokuMatrixGenerator():
 
                     try:
                         newListColumn.remove(takenValue)
-                        newListColumn.append(0)
+                        newListColumn.append(100)
                         print("newListColumn = ", newListColumn)
                         newMatrixList = list(listMatrix[matrixIndex])
                         newMatrixList.remove(takenValue)
